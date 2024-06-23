@@ -20,7 +20,7 @@ const Posts = () => {
     return (
         <section className="container my-4">
             <div className="row g-4">
-                {posts?.map(({ id, title, image, content, category, tags, published, slug }) => (
+                {posts?.map(({ id, title, image, content, category, tags, published, slug, user }) => (
                     published === true &&
                     <div key={id} className="col-4">
                         <PostCard
@@ -30,6 +30,7 @@ const Posts = () => {
                             tags={tags}
                             content={content}
                             category={category?.name}
+                            user={user}
                         />
                     </div>
                 ))}

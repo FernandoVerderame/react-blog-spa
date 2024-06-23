@@ -27,7 +27,7 @@ const PostDeatil = () => {
         return () => {
             setPost(null);
         };
-    }, [slug]);
+    }, []);
 
     if (loading) {
         return <p>Caricamento...</p>;
@@ -44,9 +44,10 @@ const PostDeatil = () => {
                 title={post.title}
                 slug={post.slug}
                 image={post.image}
-                tags={post.tags || []}
-                content={post.content || ""}
+                tags={post.tags}
+                content={post.content}
                 category={post.category}
+                user={post.user}
             />
         </section>
     );
