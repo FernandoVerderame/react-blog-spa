@@ -1,8 +1,21 @@
 import postCardStyle from './PostCard.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 
-const PostCard = ({ title, content = "", image, category, tags = [], slug, isShow }) => {
+const PostCard = ({ title, content, image, category, tags, slug, isShow, user }) => {
     const navigate = useNavigate();
+
+    const tagColors = {
+        Action: '#FF1A1A',
+        Adventure: '#6A2F93',
+        RPG: '#09A4DE',
+        FPS: '#089854',
+        MOBA: '#FF5C17',
+        Simulation: '#A56E63',
+        Strategy: '#FF4F8D',
+        Multiplayer: '#087F7A',
+        Simulation: '#0809F8',
+        Esports: '#4ACBB7'
+    };
 
     const abstract = () => {
         if (typeof content === 'string') {
@@ -16,7 +29,7 @@ const PostCard = ({ title, content = "", image, category, tags = [], slug, isSho
         <div className={postCardStyle.postCard}>
             <div className={postCardStyle.image}>
                 <img src={image ? image : "https://placehold.co/600x400"} alt={title} className={postCardStyle.img} />
-                {category && (
+                {isShow && (
                     <div className={postCardStyle.category}>
                         <strong>{category?.name}</strong>
                     </div>
@@ -31,6 +44,7 @@ const PostCard = ({ title, content = "", image, category, tags = [], slug, isSho
                         <button
                             onClick={() => { navigate(-1) }}
                             className={postCardStyle.btn}
+                            style={{ backgroundColor: 'gray' }}
                         >
                             Torna indietro
                         </button>
@@ -40,11 +54,11 @@ const PostCard = ({ title, content = "", image, category, tags = [], slug, isSho
                         </Link>
                     )}
 
-                    {Array.isArray(tags) && tags.length > 0 ? (
+                    {tags.length > 0 ? (
                         <div>
                             <ul className={postCardStyle.tags}>
                                 {tags.map((tag, i) => (
-                                    <li key={`tag-${i}`} style={{ backgroundColor: '#ccc' }} className={postCardStyle.postBadge}>
+                                    <li key={`tag-${i}`} style={{ backgroundColor: tagColors[tag.name] || '#ccc' }} className={postCardStyle.postBadge}>
                                         {tag.name}
                                     </li>
                                 ))}
@@ -54,6 +68,7 @@ const PostCard = ({ title, content = "", image, category, tags = [], slug, isSho
                         <p>Nessun tag</p>
                     )}
                 </div>
+                <p className="mt-3 mb-0 fst-italic text-center">{user.name}</p>
             </div>
         </div>
     );
